@@ -1,0 +1,61 @@
+class ArticlesController < ApplicationController
+  before_action :set_article, only: %i[ show edit update destroy ]
+
+  def index
+    @articles = Article.order(:name)
+    @article = Article.new
+  end
+
+  def new
+    @article = Article.new
+  end
+
+  def show; end
+
+  def create
+    @article = Article.new(article_params)
+
+    respond_to do |format|
+      if @article.save
+        format.html { redirect_to articles_path, notice: "Artículo creado" }
+        format.turbo_stream
+      else
+        format.html { render :index, status: :unprocessable_entity }
+        format.turbo_stream { render :form_update, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def edit; end
+
+  def update
+    respond_to do |format|
+      if @article.update(article_params)
+        format.html { redirect_to articles_path, notice: "Artículo actualizado" }
+        format.turbo_stream
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream { render :form_update, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @article.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to articles_path, notice: "Artículo eliminado" }
+      format.turbo_stream
+    end
+  end
+
+  private
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def article_params
+    params.require(:article).permit(:name, :price)
+  end
+end

@@ -1,0 +1,20 @@
+<tr id="<%= dom_id work_order_item %>" class="border-b border-gray-200 hover:bg-gray-100">
+  <td class="py-3 px-6 text-left whitespace-nowrap">
+    <div class="flex items-center">
+      <span class="font-medium"><%= work_order_item.article&.name || "N/A" %></span>
+    </div>
+  </td>
+  <td class="py-3 px-6 text-left">
+    <div class="flex items-center">
+      <span><%= work_order_item.quantity %></span>
+    </div>
+  </td>
+  <td class="py-3 px-6 text-center">
+    <div class="flex item-center justify-center">
+      <% if work_order_item.persisted? %>
+        <%= link_to "Editar", edit_work_order_work_order_item_path(work_order, work_order_item), data: { turbo_frame: "new_work_order_item_form" }, class: "text-indigo-700 text-sm font-semibold" %>
+        <%= link_to "Eliminar", [work_order, work_order_item], method: :delete, data: { turbo_confirm: "¿Seguro?", turbo_frame: "work_order_items" }, class: "text-red-600 text-sm font-semibold" %>
+      <% end %>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend "work_orders", @work_order %>
+<%= turbo_stream.replace "form_update" do %>
+  <div id="form_update" class="min-w-[320px]">
+    <%= render "form", work_order: WorkOrder.new(status: :draft) %>
+  </div>
+<% end %>

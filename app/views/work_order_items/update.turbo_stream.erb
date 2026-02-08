@@ -1,0 +1,5 @@
+<%= turbo_stream.replace dom_id(@work_order_item), partial: "work_order_items/work_order_item", locals: { work_order: @work_order, work_order_item: @work_order_item } %>
+<%= turbo_stream.replace "new_work_order_item_form" do %>
+  <%= render "work_order_items/form", work_order: @work_order, work_order_item: @work_order.work_order_items.new %>
+<% end %>
+<%= render "shared/flash" %>

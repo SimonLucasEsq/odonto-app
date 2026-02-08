@@ -1,0 +1,7 @@
+<% if notice %>
+  <%= turbo_stream.prepend "flash", partial: "shared/flash_message", locals: { message: notice, type: "success" } %>
+<% end %>
+
+<% if alert %>
+  <%= turbo_stream.prepend "flash", partial: "shared/flash_message", locals: { message: alert, type: "error" } %>
+<% end %>

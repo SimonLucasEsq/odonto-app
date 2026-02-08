@@ -1,0 +1,33 @@
+<div class="bg-gradient-to-br from-amber-50 via-white to-lime-50 shadow-md rounded-2xl p-4 border border-slate-200">
+  <h2 class="font-semibold text-lg mb-3"><%= @article.new_record? ? "Crear artículo" : "Editar artículo" %></h2>
+
+  <%= form_with(model: @article, class: "space-y-4", data: { turbo_frame: "form_article" }) do |form| %>
+    <% if @article.errors.any? %>
+      <div class="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded">
+        <p class="font-semibold">Revisa los datos:</p>
+        <ul class="list-disc list-inside text-sm">
+          <% @article.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, "Nombre", class: "block text-sm font-medium text-slate-700 mb-1" %>
+      <%= form.text_field :name, class: "w-full rounded-lg border-slate-200 focus:border-amber-500 focus:ring-amber-200", placeholder: "Ej: Composite" %>
+    </div>
+
+    <div>
+      <%= form.label :price, "Precio", class: "block text-sm font-medium text-slate-700 mb-1" %>
+      <%= form.number_field :price, step: 0.01, class: "w-full rounded-lg border-slate-200 focus:border-amber-500 focus:ring-amber-200", placeholder: "Ej: 15.00" %>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <%= form.submit (@article.new_record? ? "Crear" : "Guardar"), class: "bg-amber-500 hover:bg-amber-600 text-white font-semibold px-4 py-2 rounded-lg shadow" %>
+      <% if @article.persisted? %>
+        <%= link_to "Cancelar", articles_path, class: "text-sm text-slate-600" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
